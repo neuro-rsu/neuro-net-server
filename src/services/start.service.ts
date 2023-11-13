@@ -6,9 +6,11 @@ class StartService {
   getStart() {
     return new Promise((res, rej) => {
 
-      const pyProg = spawn('C:\\Users\\vaant\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', ['D:\\sum.py']);
+      const pyProg = spawn('C:\\Users\\vaant\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
+      ['.\\dist\\python-scripts\\sum.py', 1, 2]);
+
       pyProg.stdout.on('data', function(data) {
-        res(data);
+        res(data.toString());
       });
       pyProg.stderr.on('data', (data) => {
         console.log('stderr:', data.toString().length, 'chars');
