@@ -1,29 +1,19 @@
 const fs = require('fs'),
-  nano = require('../couch-db/couch'),
+  // nano = require('../couch-db/couch'),
   spawn = require('child_process').spawn
 
 class StartService {
   getStart() {
     return new Promise((res, rej) => {
 
-      //nano.db.list().then(result => res(result), err => res(err))
-      //res(db)
-      const db = nano.use('frameworks')
-      const progToOpen = spawn('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',["https://js-fc.github.io/js-framework-competition/all.html"]);
-
-      // db.get('e7e673a901d10dfc1f3bdd670d0afbfa').then(
-      //   result => res(result)
-      // ).catch(err => res(err))
-
-      // const progToOpen = spawn('C:\\windows\\notepad.exe', ["D:/1.txt"]);
-      //const progToOpen = spawn('C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',["https://js-fc.github.io/js-framework-competition/all.html"]);
-
-      // fs.readFile('dist/data.json', (err, data) => {
-      //   if (err) {
-      //      return res(false)
-      //   }
-      //   return res(JSON.parse(data.toString()))
-      // })
+      const pyProg = spawn('C:\\Users\\vaant\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', ['D:\\sum.py']);
+      pyProg.stdout.on('data', function(data) {
+        res(data);
+      });
+      pyProg.stderr.on('data', (data) => {
+        console.log('stderr:', data.toString().length, 'chars');
+        rej(data.toString());
+      });
     })
   }
 

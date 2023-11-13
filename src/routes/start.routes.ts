@@ -1,7 +1,7 @@
 const express = require('express'),
   router = express.Router(),
-  StartController = require('../controllers/start.controller'),
-  StartService = require('../services/start.service')
+  StartController = require('../controllers/start.controller')
+
 
 router.use(async (req, res, next) => {
   const data = {x: 1, y: 1}

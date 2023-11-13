@@ -2,21 +2,10 @@ const StartService = require('../services/start.service')
 
 class StartController {
   getStart(req, res) {
-    if (req.query.id) {
-      if (req.start.hasOwnProperty(req.query.id))
-        return res
-          .status(200)
-          .send({ data: req.start[req.query.id] })
-      else
-        return res
-          .status(404)
-          .send({ message: 'Host not found.' })
-    } else if (!req.start)
-      return res
-        .status(404)
-        .send({ message: 'Start not found.' })
-
-    return res.status(200).send({ data: req.start })
+    StartService.getStart().then(
+      result => res.status(200).send({ data: result }),
+      err => res.status(404).send({ message: err })
+    );
   }
 
   async createHost(req, res) {
