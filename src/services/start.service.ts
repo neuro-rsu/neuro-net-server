@@ -6,8 +6,8 @@ class StartService {
   getStart() {
     return new Promise((res, rej) => {
 
-      const pyProg = spawn('C:\\Users\\vaant\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
-      ['.\\dist\\python-scripts\\sum.py', 1, 2]);
+      const pyProg = spawn('C:\\Users\\Даниил\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
+      ['.\\src\\python-scripts\\predict.py', 31]);
 
       pyProg.stdout.on('data', function(data) {
         res(data.toString());

@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
       "types": ["node"],
-      "noImplicitUseStrict": true,
       "target": "esnext",
       "module": "nodenext",
       "outDir": "dist",
