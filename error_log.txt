@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\Даниил\Desktop\Диплом\neuro-net-server\src\python-scripts\predict.py", line 13, in <module>
+    test = ITSASModel.load('models\my_model.pkl')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Даниил\AppData\Local\Programs\Python\Python311\Lib\site-packages\darts\models\forecasting\torch_forecasting_model.py", line 1641, in load
+    with open(path, "rb") as fin:
+         ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'models\\my_model.pkl'
