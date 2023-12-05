@@ -9,12 +9,16 @@ class StartService {
       const pyProg = spawn('C:\\Users\\Даниил\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
       ['.\\src\\python-scripts\\predict.py', 31]);
 
+      let i = 0
       pyProg.stdout.on('data', function(data) {
-        res(data.toString());
+        
+        i++
+        if (i === 5)
+          res(JSON.parse(data.toString()));
       });
       pyProg.stderr.on('data', (data) => {
         console.log('stderr:', data.toString().length, 'chars');
-        rej(data.toString());
+        // rej(data.toString());
       });
     })
   }
