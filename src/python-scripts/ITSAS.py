@@ -322,7 +322,7 @@ class _ITSASModule(PLPastCovariatesModule):
 
         self.blocks = nn.ModuleList(self.blocks_list)
 
-        self.blocks_list[-1].blocks[-1].backcast_linear_layer.requires_grad_(False)
+        self.blocks_list[-1].parts[-1].backcast_linear_layer.requires_grad_(False)
 
     @io_processor
     def forward(self, x_in: Tuple):
@@ -486,6 +486,7 @@ class ITSASModel(PastCovariatesTorchModel):
             train_sample[1].shape[1] if train_sample[1] is not None else 0
         )
         output_dim = train_sample[-1].shape[1]
+        
         nr_params = 1 if self.likelihood is None else self.likelihood.num_parameters
 
         return _ITSASModule(
