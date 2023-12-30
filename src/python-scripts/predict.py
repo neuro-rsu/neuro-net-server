@@ -5,9 +5,9 @@ import pandas as pd
 
 sys.stderr = open('error_log.txt', 'w')
 
-test = ITSASModel.load('src\python-scripts\models\my_model.pkl')
+model = ITSASModel.load('src\python-scripts\models\my_model.pkl')
 
-df = test.predict(n = int(sys.argv[1]))
+df = model.predict(n = int(sys.argv[1]))
 
 # Преобразование TimeSeries в DataFrame
 df = df.pd_dataframe()
