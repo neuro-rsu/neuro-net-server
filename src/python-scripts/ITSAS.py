@@ -177,7 +177,6 @@ class _Block(nn.Module):
         input_chunk_length - Длина входной последовательности, подаваемой на модель.
         output_chunk_length - Длина прогноза модели.
         nr_params - Количество точек при прогнозе.
-        num_parts - Количество блоков, составляющих всю модель.
         num_parts - Количество частей, составляющих каждый блок.
         num_layers - Количество полносвязных слоев в каждой части каждого блока.
         layer_widths - Определяет количество нейронов, составляющих каждый полносвязный слой в каждой части каждого блока.
@@ -204,7 +203,7 @@ class _Block(nn.Module):
         self.output_chunk_length = output_chunk_length
         self.nr_params = nr_params
 
-        self.blocks_list = [
+        self.parts_list = [
             _Part(
                 input_chunk_length,
                 output_chunk_length,
@@ -222,7 +221,7 @@ class _Block(nn.Module):
             )
             for i in range(num_parts)
         ]
-        self.blocks = nn.ModuleList(self.blocks_list)
+        self.parts = nn.ModuleList(self.parts_list)
 
     def forward(self, x):
 
@@ -234,9 +233,9 @@ class _Block(nn.Module):
             dtype=x.dtype,
         )
 
-        for block in self.blocks_list:
+        for part in self.parts_list:
         
-            x_hat, y_hat = block(x)
+            x_hat, y_hat = part(x)
 
             stack_forecast = stack_forecast + y_hat
 
@@ -323,7 +322,7 @@ class _ITSASModule(PLPastCovariatesModule):
 
         self.blocks = nn.ModuleList(self.blocks_list)
 
-        self.blocks_list[-1].blocks[-1].backcast_linear_layer.requires_grad_(False)
+        self.blocks_list[-1].parts[-1].backcast_linear_layer.requires_grad_(False)
 
     @io_processor
     def forward(self, x_in: Tuple):
@@ -341,9 +340,9 @@ class _ITSASModule(PLPastCovariatesModule):
             dtype=x.dtype,
         )
 
-        for stack in self.blocks_list:
+        for block in self.blocks_list:
 
-            stack_residual, stack_forecast = stack(x)
+            stack_residual, stack_forecast = block(x)
 
             y = y + stack_forecast
 
@@ -487,6 +486,7 @@ class ITSASModel(PastCovariatesTorchModel):
             train_sample[1].shape[1] if train_sample[1] is not None else 0
         )
         output_dim = train_sample[-1].shape[1]
+        
         nr_params = 1 if self.likelihood is None else self.likelihood.num_parameters
 
         return _ITSASModule(
