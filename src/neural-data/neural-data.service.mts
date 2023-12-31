@@ -1,6 +1,5 @@
-const fs = require('fs'),
-  // nano = require('../couch-db/couch'),
-  spawn = require('child_process').spawn
+import fs from 'fs'
+import {spawn} from 'child_process'
 
 class NeuralDataService {
   getNeuralData(req) {
