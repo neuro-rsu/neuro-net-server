@@ -1,0 +1,6 @@
+Downloading...
+From: https://drive.google.com/uc?id=1HV-xZavp3RuJkPbvjyhVe9oiR333bzq7
+To: C:\Users\Даниил\Desktop\Диплом\neuro-net-server\src\python-scripts\models\user_123\data.csv
+  0%|                                                                                       | 0.00/665k [00:00<?, ?B/s] 79%|##############################################################2                | 524k/665k [00:00<00:00, 2.78MB/s]100%|###############################################################################| 665k/665k [00:00<00:00, 2.65MB/s]
+C:\Users\Даниил\AppData\Local\Programs\Python\Python311\Lib\site-packages\pytorch_lightning\trainer\configuration_validator.py:74: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+C:\Users\Даниил\AppData\Local\Programs\Python\Python311\Lib\site-packages\pytorch_lightning\trainer\connectors\data_connector.py:441: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=15` in the `DataLoader` to improve performance.
